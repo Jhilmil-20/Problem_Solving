@@ -1,0 +1,20 @@
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int i,j;
+        int st=-1;
+        int end=-1;
+        int[] op= new int[2];
+
+        for(i=0,j=nums.length-1;i<nums.length;i++,j--){
+            if(nums[i]==target){
+            end=i;
+        }
+            if(nums[j]==target){
+                st=j;
+            }
+        }
+        op[0]=st;
+        op[1]=end;
+        return op;
+    }
+}
