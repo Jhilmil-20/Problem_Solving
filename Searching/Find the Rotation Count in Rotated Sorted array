@@ -1,0 +1,31 @@
+Brute force solution , i.e. traverse linearly until you find a bigger element, and return index+1
+
+int detectRotations(int array[], int size) {
+    if (array[0] > array[size - 1]) {
+        for (int i = 0; i < size; i++) {
+            if (array[i] > array[i + 1])
+                return i + 1;
+        }
+    }
+    return 0;
+}
+
+using binary search , check if the middle element is the smallest, if left of mid is small and right of mid is high, then call the function again for both 
+left subarray and right subarray until the base case is hit,the terminating conditions are , if high is less then low, then return 0, because index out of bound, 
+and if high==low, then return low as only single element left, and if mid-1<mid<mid+1 is not satisfied, thenreturn accordingly. if mid+1<mid return mid+1 , 
+if mid<mid-1 return mid element. 
+
+int detectRotations(int array[], int low, int high) {
+    if (high < low) 
+        return 0;
+    if (high == low) 
+        return low;
+    int mid = low + (high - low) / 2;
+    if (mid < high && array[mid + 1] < array[mid]) 
+        return (mid + 1);
+    if (mid > low && array[mid] < array[mid - 1]) 
+        return mid;
+    if (array[high] > array[mid]) 
+        return detectRotations(array, low, mid - 1);
+    return detectRotations(array, mid + 1, high);
+}
